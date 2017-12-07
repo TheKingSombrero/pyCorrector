@@ -1,5 +1,7 @@
 from pynput.keyboard import Key, Controller, Listener
 
+with open('file.txt') as f:
+    d = dict(x.rstrip().split(None, 1) for x in f)  # Turning file to dictionary
 while True:
     keys = []
     word = ""
@@ -25,12 +27,15 @@ while True:
             # Stop listener
             return False
 
+
     # Collect events until released
     with Listener(
             on_press=on_press,
             on_release=on_release) as listener:
         listener.join()
-    for key in keys:
+    for key in keys:  # creating word
         word += key
-    a.type(string=word)
-    a.type(string=' ')
+    if word in d.keys():
+        correction = d[word]
+        a.type(correction)
+        a.type(" ")
