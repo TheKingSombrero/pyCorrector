@@ -37,5 +37,12 @@ while True:
         word += key
     if word in d.keys():
         correction = d[word]
+        a.press(Key.ctrl.value)
+        a.press(Key.backspace.value)
+        a.release(Key.backspace.value)
+        for i in word:
+            a.press(Key.backspace.value)
+            a.release(Key.backspace.value)
+        a.release(Key.ctrl.value)
         a.type(correction)
         a.type(" ")
