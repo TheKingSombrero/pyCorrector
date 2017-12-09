@@ -1,10 +1,12 @@
 from pynput.keyboard import Key, Controller, Listener
 
+# TODO: Add backspace functionality,expand database...
 with open('file.txt') as f:
     d = dict(x.rstrip().split(None, 1) for x in f)  # Turning file to dictionary
 while True:
     keys = []
     word = ""
+    i = 1
 
     a = Controller()
 
@@ -14,7 +16,6 @@ while True:
             print('alphanumeric key {0} pressed'.format(
                 key.char))
             keys.append(key.char)
-
         except AttributeError:
             print('special key {0} pressed'.format(
                 key))
@@ -27,7 +28,6 @@ while True:
             # Stop listener
             return False
 
-
     # Collect events until released
     with Listener(
             on_press=on_press,
@@ -35,14 +35,14 @@ while True:
         listener.join()
     for key in keys:  # creating word
         word += key
+
     if word in d.keys():
         correction = d[word]
-        a.press(Key.ctrl.value)
         a.press(Key.backspace.value)
         a.release(Key.backspace.value)
-        for i in word:
+        while i <= len(word):
             a.press(Key.backspace.value)
             a.release(Key.backspace.value)
-        a.release(Key.ctrl.value)
+            i += 1
         a.type(correction)
         a.type(" ")
