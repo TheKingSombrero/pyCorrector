@@ -1,8 +1,11 @@
 from pynput.keyboard import Key, Controller, Listener
 
 # TODO: Add backspace functionality,expand database...
-with open('file.txt') as f:
-    d = dict(x.rstrip().split(None, 1) for x in f)  # Turning file to dictionary
+d = {}
+with open("file.txt") as f:
+    for line in f:
+        (key, val) = line.split()
+        d[(key)] = val  # Turning file to dictionary
 while True:
     keys = []
     word = ""
@@ -27,6 +30,7 @@ while True:
         if key == Key.space:
             # Stop listener
             return False
+
 
     # Collect events until released
     with Listener(
