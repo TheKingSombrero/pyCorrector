@@ -11,7 +11,7 @@ while True:
     word = ""
     i = 1
 
-    controller_object = Controller() # init keyboard manager object
+    controller_object = Controller()  # init keyboard manager object
 
 
     def on_press(key):
@@ -37,11 +37,11 @@ while True:
             on_press=on_press,
             on_release=on_release) as listener:
         listener.join()
-    word = word.join(keys) #concat keys into word
+    word = word.join(keys)  # concat keys into word
 
     if word in d.keys():  # check if word exists in dictionary
         correction = d[word]  # fetch correction from dict
-        for i in range(len(word)+1):  # delete entire word and space
+        for i in range(len(word) + 1):  # delete entire word and space
             controller_object.press(Key.backspace.value)
             controller_object.release(Key.backspace.value)
         controller_object.type(correction)  # write correction and space
