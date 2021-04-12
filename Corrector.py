@@ -2,7 +2,7 @@ from pynput.keyboard import Key, Controller, Listener
 
 # TODO: Add backspace functionality,expand database...
 d = {}
-with open("file.txt") as f:
+with open("wordlist.txt") as f:
     for line in f:
         (key, val) = line.split()
         d[key] = val  # Turning file to dictionary
@@ -22,6 +22,9 @@ while True:
         except AttributeError:
             print('special key {0} pressed'.format(
                 key))
+            if key == Key.backspace:
+                if keys:
+                    keys.pop()
 
 
     def on_release(key):
